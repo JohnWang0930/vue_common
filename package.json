@@ -1,0 +1,23 @@
+{
+  "name": "vue_common",
+  "version": "1.0.0",
+  "description": "一个纯前端项目通用脚手架",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zhen_wang",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "css-loader": "^2.1.1",
+    "express": "^4.16.4",
+    "path": "^0.12.7",
+    "url-loader": "^1.1.2",
+    "vue": "^2.6.8",
+    "vue-loader": "^15.7.0",
+    "webpack": "^4.29.6",
+    "webpack-dev-middleware": "^3.6.1"
+  }
+}
