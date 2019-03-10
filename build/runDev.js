@@ -1,9 +1,9 @@
-import express from 'express'
+import Express from 'express'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import baseConfig from './webpackConfigBase'
 
-const app = express()
+const app = Express()
 const compiler = webpack(baseConfig)
 
 // 告诉 express 使用 webpack-dev-middleware，

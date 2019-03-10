@@ -1,5 +1,6 @@
 import path from 'path'
-import utils from './utils'
+import VueLoaderPlugin from 'vue-loader/lib/plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 function resolve(dir) {
     //拼接出绝对路径
@@ -12,11 +13,11 @@ export default {
     context: path.resolve(__dirname, '../'),
     //配置入口，默认为单页面所以只有app一个入口
     entry: {
-        app: './src/main.js'
+        app: resolve('src/main.js')
     },
     //配置出口，默认是/dist作为目标文件夹的路径
     output: {
-        path: './dist',
+        path: resolve('dist'),
         filename: '[name].js',//文件名
         publicPath: '/' // TODO 根据开发、生产环境配置
     },
@@ -30,14 +31,23 @@ export default {
             //使用vue-loader将vue文件转化成js的模块①
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
-                options: vueLoaderConfig // TODO 看vueloader配置
+                loader: 'vue-loader'
             },
             //js文件需要通过babel-loader进行编译成es5文件以及压缩等操作②
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                include: [resolve('src'), resolve('node_modules/webpack-dev-server/client')]
+                include: [resolve('src')]
+            },
+            // 普通的 `.scss` 文件和 `*.vue` 文件中的
+            // `<style lang="scss">` 块都应用它
+            {
+                test: /\.scss$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
             },
             //图片、音像、字体都使用url-loader进行处理，超过10000会编译成base64③
             {
@@ -45,7 +55,6 @@ export default {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: utils.assetsPath('img/[name].[hash:7].[ext]') // TODO
                 }
             },
             {
@@ -53,7 +62,6 @@ export default {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: utils.assetsPath('media/[name].[hash:7].[ext]') // TODO
                 }
             },
             {
@@ -61,9 +69,15 @@ export default {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: utils.assetsPath('fonts/[name].[hash:7].[ext]') // TODO
                 }
             }
         ]
     },
+    plugins:[
+        new VueLoaderPlugin(),
+        new HtmlWebpackPlugin({
+            template:resolve('index.html'),
+            favicon:resolve('favicon.ico')
+        })
+    ],
 }
