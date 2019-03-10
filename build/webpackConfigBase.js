@@ -23,7 +23,10 @@ export default {
     },
     resolve: {
         //自动的扩展后缀，比如一个js文件，则引用时书写可不要写.js
-        extensions: ['.js', '.vue', '.json']
+        extensions: ['.js', '.vue', '.json'],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js' // 添加编译器 TODO 生产环境不需要
+        }
     },
     //使用插件配置相应文件的处理方法
     module: {
@@ -73,11 +76,11 @@ export default {
             }
         ]
     },
-    plugins:[
+    plugins: [
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
-            template:resolve('index.html'),
-            favicon:resolve('favicon.ico')
+            template: resolve('index.html'),
+            favicon: resolve('favicon.ico')
         })
     ],
 }
