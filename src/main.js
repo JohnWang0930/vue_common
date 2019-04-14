@@ -5,6 +5,8 @@ import routes from './router'
 import App from './App'
 import store from './store'
 
+window.__webpack_public_path__ = 'https://baidu.com' // webpack 动态cdn
+
 Vue.use(VueRouter)
 Vue.use(Vuex)
 
@@ -19,4 +21,5 @@ const vm = new Vue({
     components:{App},
     template: `<App/>`
 })
+
 

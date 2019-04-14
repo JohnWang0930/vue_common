@@ -1,6 +1,7 @@
 import path from 'path'
 import VueLoaderPlugin from 'vue-loader/lib/plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import config from './config.js'
 
 function resolve(dir) {
     //拼接出绝对路径
@@ -8,24 +9,25 @@ function resolve(dir) {
 }
 
 export default {
+    mode: process.env.NODE_ENV,
+    devtool: config.devtool,
     //path.join将路径片段进行拼接，而path.resolve将以/开始的路径片段作为根目录，在此之前的路径将会被丢弃
     //path.join('/a', '/b') // 'a/b',path.resolve('/a', '/b') // '/b'
-    context: path.resolve(__dirname, '../'),
     //配置入口，默认为单页面所以只有app一个入口
     entry: {
-        app: resolve('src/main.js')
+        app: [resolve('src/main.js')],
     },
     //配置出口，默认是/dist作为目标文件夹的路径
     output: {
         path: resolve('dist'),
-        filename: '[name].js',//文件名
-        publicPath: '/' // TODO 根据开发、生产环境配置
+        filename: '[name]_[hash].js',//文件名
+        publicPath: config.publicPath
     },
     resolve: {
         //自动的扩展后缀，比如一个js文件，则引用时书写可不要写.js
         extensions: ['.js', '.vue', '.json'],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js' // 添加编译器 TODO 生产环境不需要
+            'vue$': 'vue/dist/vue.esm.js' // 添加编译器
         }
     },
     //使用插件配置相应文件的处理方法
@@ -81,6 +83,6 @@ export default {
         new HtmlWebpackPlugin({
             template: resolve('index.html'),
             favicon: resolve('favicon.ico')
-        })
+        }),
     ],
 }

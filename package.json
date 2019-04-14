@@ -1,10 +1,12 @@
 {
   "name": "vue_common",
   "version": "1.0.0",
-  "description": "一个纯前端项目通用脚手架",
+  "descripti": "一个纯前端项目通用脚手架",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development babel-node ./build/runDev.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env NODE_ENV=development ENV=development babel-node ./build/runDev.js",
+    "test": "cross-env NODE_ENV=production ENV=test babel-node ./build/runBuild.js",
+    "pre": "cross-env NODE_ENV=production ENV=pre babel-node ./build/runBuild.js",
+    "online": "cross-env NODE_ENV=production ENV=online babel-node ./build/runBuild.js"
   },
   "author": "zhen_wang",
   "license": "ISC",
@@ -14,6 +16,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^2.0.1",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "express": "^4.16.4",
@@ -29,6 +32,7 @@
     "vue-template-compiler": "^2.6.8",
     "vuex": "^3.1.0",
     "webpack": "^4.29.6",
-    "webpack-dev-middleware": "^3.6.1"
+    "webpack-dev-middleware": "^3.6.1",
+    "webpack-hot-middleware": "^2.24.3"
   }
 }
